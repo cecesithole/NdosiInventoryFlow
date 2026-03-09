@@ -1,0 +1,23 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite" parallel="false" thread-count="4">
+    <listeners>
+        <listener class-name="ExtentReports.Listener"/>
+    </listeners>
+    <!--
+    Sequential execution configuration:
+    1. @BeforeSuite opens browser once (BaseTest.setUp)
+    2. LoginTest runs first (logs in with Excel data)
+    3. LandingPageTest runs second (navigates to inventory form)
+    4. InventoryFormTest runs third (fills and submits form)
+    5. @AfterSuite closes browser (BaseTest.tearDown)
+
+    Browser stays open throughout all tests - no closing/reopening between tests
+    -->
+    <test name="Login → Landing → Inventory" preserve-order="true">
+        <classes>
+            <class name="Basics.LoginTest"/>
+            <class name="Basics.LandingPageTest"/>
+            <class name="Basics.InventoryFormTest"/>
+        </classes>
+    </test>
+</suite>
